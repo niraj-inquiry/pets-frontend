@@ -31,7 +31,35 @@ export const authApi = createApi({
       }),
       invalidatesTags: ["Auth"],
     }),
+    getProfile: builder.query({
+      query: () => ({
+        url: "/user/get-user-profile",
+        method: "GET",
+      }),
+      providesTags: ["Auth"],
+    }),
+    updateProfile: builder.mutation({
+      query: (data) => ({
+        url: "/user/update-user-profile",
+        method: "PATCH",
+        body: data,
+      }),
+      invalidatesTags: ["Auth"],
+    }),
+    logout: builder.mutation({
+      query: () => ({
+        url: "/user/logout",
+        method: "PATCH",
+      }),
+      invalidatesTags: ["Auth"],
+    }),
   }),
 });
 
-export const { useUserLoginMutation, useRegisterUserMutation } = authApi;
+export const {
+  useUserLoginMutation,
+  useRegisterUserMutation,
+  useGetProfileQuery,
+  useUpdateProfileMutation,
+  useLogoutMutation,
+} = authApi;

@@ -25,95 +25,104 @@ import ReportingAnalytics from './components/Admin/ReportingAnalytics/ReportingA
 import DiagnosisManagement from './components/Admin/DiagnosisManagement/DiagnosisManagement';
 import BillingPayment from './components/Admin/BillingPayment/BillingPayment';
 const App = () => {
-	const ProtectedRoute = ({ element, redirectTo = "/login" }) => {
-		const token = localStorage.getItem("token");
+	const ProtectedRoute = ({ element, allowedRoles }) => {
+		console.log({ allowedRoles });
 
-		if (!token) {
-			return <Navigate to={redirectTo} />;
+		const role = localStorage.getItem("role");
+
+		if (!Array.isArray(allowedRoles)) {
+			console.error("ProtectedRoute: allowedRoles is not an array", allowedRoles);
+			return <Navigate to="/unauthorized" />;
 		}
-		return element;
+
+		return allowedRoles.includes(role) ? (
+			element
+		) : (
+			<Navigate to="/" />
+		);
 	};
+
 
 	return (
 		<Router>
 			<Routes>
-				<Route path="/login" element={<Login />} />
+				<Route path="/" element={<Login />} />
 				<Route path="/signup" element={<Signup />} />
-				<Route path='/' element={<ProtectedRoute element={<Layout />} redirectTo="/login" />}  >
-					<Route index element={<ProtectedRoute element={<Dashboard />} />} />
-					<Route path="/appointment" element={<Appointment />}  />
+				<Route path='/admin/*' element={<ProtectedRoute element={<Layout />} allowedRoles={["admin"]} />}  >
+					<Route index element={<Dashboard />} />
+					<Route path="appointment" element={<Appointment />} />
 					{/* appointment */}
 					{/* Patient Management  */}
 					<Route
-						path="/patientmanagement"
+						path="patientmanagement"
 						element={<PatientManagement />}
 					/>
 					{/* Patient Management  */}
 					{/* Patient Management  */}
-					<Route path="/doctormanagement" element={<DocterManagement />} />
-					<Route path="/patient/:id" element={<PatientDetails />} />
-					<Route path="/doctorprofile" element={<DoctorProfile />} />
-					<Route path="/newdoctor" element={<NewDoctor />} />"
+					<Route path="doctormanagement" element={<DocterManagement />} />
+					<Route path="patient/:id" element={<PatientDetails />} />
+					<Route path="doctorprofile" element={<DoctorProfile />} />
+					<Route path="newdoctor" element={<NewDoctor />} />"
 					{/* Patient Management  */}
 					{/* inventorymanagement  */}
 					<Route
-						path="/inventorymanagement"
+						path="inventorymanagement"
 						element={<InventoryManagementDashboard />}
 					/>
 					{/* inventorymanagement end  */}
 					{/* laboratorymanagement   */}
 					<Route
-						path="/laboratorymanagement"
+						path="laboratorymanagement"
 						element={<LaboratoryManagement />}
 					/>
 					{/* laboratorymanagement  end  */}
 					{/* TeleCommmunication  start  */}
-					<Route path="/telecommunication" element={<StaffDirectory />} />
+					<Route path="telecommunication" element={<StaffDirectory />} />
 					<Route
-						path="/CommuniCalender"
+						path="CommuniCalender"
 						element={<CommunicationCalender />}
 					/>
 					{/* TeleCommmunication  end  */}
 					{/*Discharge Summary Start */}
-					<Route path="/dischargesummary" element={<DischargeSummary />} />
+					<Route path="dischargesummary" element={<DischargeSummary />} />
 					{/*Discharge Summary End */}
 
 					{/* Dashbord */}
-					<Route path="/dashboard" element={<Dashboard />} />
+					{/* <Route path="dashboard" element={<Dashboard />} /> */}
 					{/* Dashbord */}
 
 					{/* appointment */}
-					<Route path="/appointment" element={<Appointment />} />
+					<Route path="appointment" element={<Appointment />} />
 					{/* appointment */}
 
 					{/* Patient Management  */}
-					<Route path="/patientmanagement" element={<PatientManagement />} />
+					<Route path="patientmanagement" element={<PatientManagement />} />
 					{/* Patient Management  */}
 
 					{/* Patient Management  */}
-					<Route path="/doctermanagement" element={<DocterManagement />} />
-					<Route path="/patient/:id" element={<PatientDetails />} />
+					<Route path="doctermanagement" element={<DocterManagement />} />
+					<Route path="patient/:id" element={<PatientDetails />} />
 					{/* Patient Management  */}
 
 					{/* inventorymanagement  */}
-					<Route path="/inventorymanagement" element={<InventoryManagementDashboard />} />
+					<Route path="inventorymanagement" element={<InventoryManagementDashboard />} />
 
 					{/* inventorymanagement end  */}
 
 					{/* laboratorymanagement   */}
-					<Route path="/laboratorymanagement" element={<LaboratoryManagement />} />
+					<Route path="laboratorymanagement" element={<LaboratoryManagement />} />
 					{/* laboratorymanagement  end  */}
 
 					{/* reportinganalytics  */}
-					<Route path="/reportinganalytics" element={<ReportingAnalytics />} />
+					<Route path="reportinganalytics" element={<ReportingAnalytics />} />
 					{/* reportinganalytics  end  */}
 
 					{/* diagnosismanagement   */}
-					<Route path="/diagnosismanagement" element={<DiagnosisManagement />} />
+					<Route path="diagnosismanagement" element={<DiagnosisManagement />} />
 					{/* diagnosismanagement  end  */}
 
 					{/*Billing&Payment */}
-					<Route path="/billingpayment" element={<BillingPayment />} />
+					<Route path="billingpayment" element={<BillingPayment />} />
 					{/*Billing&Payment */}
 				</Route>
 			</Routes>

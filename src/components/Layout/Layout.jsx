@@ -4,19 +4,24 @@ import Navbar from './Navbar'
 import { Outlet } from 'react-router-dom'
 import '../../App.css'
 import { Box, Grid } from '@mui/material'
+import { useSelector } from 'react-redux'
 
 const Layout = () => {
+	const isOpen = useSelector(state => state.common.isOpen)
+
 	return (
-		<Box sx={{ width: '100vw', height: "100vh" }} >
+		<Box sx={{
+			backgroundColor: "#f4f4f4"
+		}} >
 			<Navbar />
 			<Box sx={{ display: "flex", justifyContent: "space-between" }} >
-				<Box>
+				<Box sx={{ width: isOpen ? "15%" : '5%' }} >
 					<Sidebar />
 				</Box>
-				<Box>
-
+				<Box sx={{ width: isOpen ? "82%" : '95%' }} >
+					<Outlet />
 				</Box>
-				<Outlet />
+
 			</Box>
 		</Box>
 	)
