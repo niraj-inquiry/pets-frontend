@@ -28,7 +28,8 @@ const App = () => {
 	const ProtectedRoute = ({ element, allowedRoles }) => {
 		console.log({ allowedRoles });
 
-		const role = localStorage.getItem("role");
+		// const role = localStorage.getItem("role");
+		const role ='admin'
 
 		if (!Array.isArray(allowedRoles)) {
 			console.error("ProtectedRoute: allowedRoles is not an array", allowedRoles);
