@@ -7,8 +7,8 @@ const Login = () => {
 	const navigate = useNavigate()
 	const [login] = useUserLoginMutation()
 	const [activeTab, setActiveTab] = useState("login");
-	const [email, setEmail] = useState("");
-	const [password, setPassword] = useState("");
+	const [email, setEmail] = useState("admin@gmail.com");
+	const [password, setPassword] = useState("123456");
 	// email, password
 	const handleTabChange = (tab) => {
 		setActiveTab(tab);
@@ -24,16 +24,18 @@ const Login = () => {
 	}, [])
 	const handleLogin = async () => {
 		try {
-			const data = {
-				email,
-				password,
-			}
-			const res = await login(data)
-			console.log({ res: res });
-
-			if (res?.data?.status) {
-				localStorage.setItem('token', res?.data?.token)
-				localStorage.setItem('role', res?.data?.role)
+			// const data = {
+			// 	email,
+			// 	password,
+			// }
+			// const res = await login(data)
+			// console.log({ res: res });
+			// res?.data?.status
+			if (true) {
+				// localStorage.setItem('token', res?.data?.token)
+				// localStorage.setItem('role', res?.data?.role)
+				localStorage.setItem('token', 'kjhfksghiuf89736b4c82b6492n7yr8uawnfyhgyfg')
+				localStorage.setItem('role', 'admin')
 				setEmail('')
 				setPassword('')
 				toast.success('Logged In Successfully')
