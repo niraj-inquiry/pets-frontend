@@ -1,10 +1,17 @@
 import React from 'react'
+// import {
+// 	BrowserRouter as Router,
+// 	Routes,
+// 	Route,
+// 	useLocation,
+// 	Navigate,
+// } from "react-router-dom";
 import {
-	BrowserRouter as Router,
-	Routes,
-	Route,
-	useLocation,
-	Navigate,
+  HashRouter as Router,
+  Routes,
+  Route,
+  useLocation,
+  Navigate,
 } from "react-router-dom";
 import Login from './components/Auth/Login';
 import Signup from './components/Auth/Signup';
